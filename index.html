@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isara Khamphaeng (O) | Computer Engineering Portfolio</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- ScrollReveal JS -->
+  <script src="https://unpkg.com/scrollreveal"></script>
+  
+  <style>
+    body {
+      background-color: #050811;
+      color: #e2e8f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #050811;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #06b6d4;
+    }
+
+    /* Background Grid */
+    .bg-grid {
+      background-image: radial-gradient(rgba(6, 182, 212, 0.12) 1px, transparent 0);
+      background-size: 30px 30px;
+    }
+
+    /* Glow Effects */
+    .glow-cyan {
+      box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.3);
+    }
+    .glow-text {
+      text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+    }
+
+    /* Custom Cursor */
+    .cursor-dot, .cursor-outline {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      z-index: 9999;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .cursor-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #06b6d4;
+    }
+    .cursor-outline {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(6, 182, 212, 0.5);
+      transition: width 0.2s ease, height 0.2s ease, transform 0.08s ease-out;
+    }
+
+    /* 3D Tilt Card Container */
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
+    }
+  </style>
+</head>
+<body class="bg-grid min-h-screen flex flex-col justify-between relative selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- Custom Cursor Elements -->
+  <div class="cursor-dot hidden md:block"></div>
+  <div class="cursor-outline hidden md:block"></div>
+
+  <!-- Background Canvas for Matrix Effect -->
+  <canvas id="matrixCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-none opacity-20 z-0"></canvas>
+
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center px-8 py-5 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="text-xl font-bold tracking-wider text-cyan-400 flex items-center gap-2 group cursor-pointer">
+      <i data-lucide="cpu" class="group-hover:rotate-180 transition duration-500"></i>
+      <span>ISARA.<span class="text-white glow-text">DEV</span></span>
+    </div>
+    <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
+      <a href="#about" class="hover:text-cyan-400 transition hover:glow-text">About</a>
+      <a href="#skills" class="hover:text-cyan-400 transition hover:glow-text">Skills</a>
+      <a href="#experience" class="hover:text-cyan-400 transition hover:glow-text">Experience</a>
+      <a href="#projects" class="hover:text-cyan-400 transition hover:glow-text">Projects</a>
+      <a href="#terminal" class="hover:text-cyan-400 transition hover:glow-text">Terminal</a>
+      <a href="#contact" class="hover:text-cyan-400 transition hover:glow-text">Contact</a>
+    </div>
+    <a href="#contact" class="border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-slate-950 px-4 py-2 rounded-lg text-sm transition font-semibold flex items-center gap-2 glow-cyan">
+      Contact Me <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+    </a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-6 py-12 flex-grow space-y-28 z-10 relative">
+    
+    <!-- Hero Section -->
+    <section id="about" class="pt-6 reveal-item">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Content -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 bg-cyan-950/60 border border-cyan-800/50 text-cyan-400 px-3.5 py-1.5 rounded-full text-xs font-semibold glow-cyan">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+            Open to Internship & Opportunities
+          </div>
+
+          <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+            Hello, I'm <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500">
+              Isara Khamphaeng
+            </span>
+          </h1>
+
+          <p class="text-cyan-400/90 text-lg font-mono tracking-wide flex items-center gap-2">
+            > Computer Engineering Student <span class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">(โอ / O)</span>
+          </p>
+
+          <p class="text-slate-400 text-base leading-relaxed max-w-xl">
+            นักศึกษาวิศวกรรมคอมพิวเตอร์ผู้มีความเชี่ยวชาญรอบด้าน ทั้ง <b class="text-slate-200">AI Automation (CiRA CORE)</b>, <b class="text-slate-200">IoT & Microcontroller Systems (ESP32, Node-RED)</b>, <b class="text-slate-200">Network Infrastructure & Data Center</b> รวมถึงการเขียนโปรแกรมฝั่ง Software, Web และ Databases[cite: 2]
+          </p>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-wrap gap-4 pt-2">
+            <a href="#projects" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-6 py-3 rounded-lg flex items-center gap-2 transition glow-cyan hover:scale-105 active:scale-95">
+              Explore My Work <i data-lucide="compass" class="w-5 h-5"></i>
+            </a>
+            <a href="#terminal" class="bg-slate-900 border border-slate-700 hover:border-cyan-500 text-slate-200 font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition hover:scale-105">
+              Interactive Terminal <i data-lucide="terminal" class="w-5 h-5 text-cyan-400"></i>
+            </a>
+          </div>
+
+          <!-- Quick Info Footer -->
+          <div class="flex flex-wrap items-center gap-6 pt-4 text-xs text-slate-400 border-t border-slate-800/80 font-mono">
+            <span class="flex items-center gap-1.5"><i data-lucide="phone" class="w-4 h-4 text-cyan-400"></i> 091-7971612</span>[cite: 2]
+            <span class="flex items-center gap-1.5"><i data-lucide="mail" class="w-4 h-4 text-cyan-400"></i> ingkung2004@gmail.com</span>[cite: 2]
+            <span class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-4 h-4 text-cyan-400"></i> Thailand</span>[cite: 2]
+          </div>
+        </div>
+
+        <!-- Right Content (Interactive 3D Tilt Card) -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <div id="tiltCard" class="tilt-card bg-slate-900/80 border border-slate-800 rounded-2xl p-4 glow-cyan relative overflow-hidden group cursor-pointer backdrop-blur-sm">
+            <div class="relative h-96 rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center border border-slate-800/80">
+              <!-- รูปภาพจริงของคุณโอ (stdempimg.jpg) -->
+              <img src="stdempimg.jpg" onerror="this.src='https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=800&auto=format&fit=crop'" alt="Isara Khamphaeng" class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-700">[cite: 2, 4]
+              
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+
+              <div class="absolute bottom-0 inset-x-0 p-5 flex justify-between items-end">
+                <div>
+                  <p class="text-xs text-cyan-400 font-mono tracking-wider">01 — ISARA KHAMPHAENG (O)</p>[cite: 2]
+                  <p class="text-white font-bold text-lg">Computer Engineering</p>[cite: 2]
+                </div>
+                <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
+              </div>
+            </div>
+
+            <div class="mt-3 flex justify-between items-center px-1 text-xs text-slate-400 font-mono">
+              <span>SRIPATUM UNIVERSITY (SPU)</span>[cite: 4]
+              <span class="text-cyan-400">AI / NETWORK / IOT</span>[cite: 2]
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="reveal-item">
+      <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+        <i data-lucide="code" class="text-cyan-400"></i> Technical Skillset
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Programming -->
+        <div class="bg-slate-900/50 border border-slate-800/80 p-6 rounded-xl hover:border-cyan-500/50 transition duration-300 hover:-translate-y-2 group backdrop-blur-sm">
+          <div class="w-12 h-12 bg-cyan-950/80 rounded-xl flex items-center justify-center text-cyan-400 mb-4 group-hover:scale-110 transition duration-300">
+            <i data-lucide="terminal"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-3">Languages & Web</h3>
+          <ul class="space-y-2 text-slate-400 text-sm font-mono">
+            <li class="flex items-center gap-2"><span class="text-cyan-400">▸</span> C / C++</li>[cite: 2]
+            <li class="flex items-center gap-2"><span class="text-cyan-400">▸</span> Python</li>[cite: 2]
+            <li class="flex items-center gap-2"><span class="text-cyan-400">▸</span> JavaScript / HTML</li>[cite: 2]
+          </ul>
+        </div>
+
+        <!-- AI & Automation -->
+        <div class="bg-slate-900/50 border border-slate-800/80 p-6 rounded-xl hover:border-cyan-500/50 transition duration-300 hover:-translate-y-2 group backdrop-blur-sm">
+          <div class="w-12 h-12 bg-cyan-950/80 rounded-xl flex items-center justify-center text-cyan-400 mb-4 group-hover:scale-110 transition duration-300">
+            <i data-lucide="sparkles"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-3">AI & Automation</h3>
+          <ul class="space-y-2 text-slate-400 text-sm font-mono">
+            <li class="flex items-center gap-2"><span class="text-cyan-400">▸</span> CiRA CORE Platform</li>[cite: 2]
+            <li class="flex items-center gap-2"><span class="text-cyan-400">▸</span> AI Visual Automation</li>[cite: 2]
+            <li class="flex items-center gap-2"><span class="text-cyan-400">▸</span> AI Detection Training</li>[cite: 2]
+          </ul>
+        </div>
+
+        <!-- IoT & Hardware -->
+        <div class="bg-slate-900/50 border border-slate-800/80 p-6 rounded-xl hover:border-cyan-500/50 transition duration-300 hover:-translate-y-2 group backdrop-blur-sm">
+          <div class="w-12 h-12 bg-cyan-950/80 rounded-xl flex items-center justify-center text-cyan-400 mb-4 group-hover:scale-110 transition duration-300">
+            <i data-lucide="cpu"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-3">Hardware & IoT</h3>
+          <ul class="space-y-2 text-slate-400 text-sm font-mono">
+            <li class="flex items-center gap-2"><span class="text-cyan-400">▸</span> ESP32 & Sensors</li>[cite: 2]
+            <li class="flex items-center gap-2"><span class="text-cyan-400">▸</span> Node-RED Integration</li>[cite: 2]
+            <li class="flex items-center gap-2"><span class="text-cyan-400">▸</span> PCB & Logic Gates</li>[cite: 2]
+          </ul>
+        </div>
+
+        <!-- Network & Databases -->
+        <div class="bg-slate-900/50 border border-slate-800/80 p-6 rounded-xl hover:border-cyan-500/50 transition duration-300 hover:-translate-y-2 group backdrop-blur-sm">
+          <div class="w-12 h-12 bg-cyan-950/80 rounded-xl flex items-center justify-center text-cyan-400 mb-4 group-hover:scale-110 transition duration-300">
+            <i data-lucide="network"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-3">Network & Data</h3>
+          <ul class="space-y-2 text-slate-400 text-sm font-mono">
+            <li class="flex items-center gap-2"><span class="text-cyan-400">▸</span> Data Center Network</li>[cite: 2]
+            <li class="flex items-center gap-2"><span class="text-cyan-400">▸</span> Subnetting & Routing</li>[cite: 2]
+            <li class="flex items-center gap-2"><span class="text-cyan-400">▸</span> MySQL & MongoDB</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Experience Timeline Section -->
+    <section id="experience" class="reveal-item">
+      <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+        <i data-lucide="history" class="text-cyan-400"></i> Academic & Project Timeline
+      </h2>
+
+      <div class="relative border-l border-slate-800 ml-4 space-y-8">
+        
+        <!-- Year 1 -->
+        <div class="relative pl-6 group">
+          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-900 border-2 border-cyan-500 group-hover:bg-cyan-400 transition"></div>
+          <div class="bg-slate-900/40 border border-slate-800/80 p-5 rounded-xl space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-mono text-cyan-400">YEAR 1</span>[cite: 2]
+              <span class="text-xs font-mono text-slate-500">IoT & Cloud System</span>[cite: 2]
+            </div>
+            <h3 class="text-lg font-bold text-white">Smart Home Project & IoT Development</h3>[cite: 2]
+            <p class="text-slate-400 text-sm leading-relaxed">
+              รับผิดชอบการเขียนโค้ดภาษา C/C++ บนไมโครคอนโทรลเลอร์ ESP32 เชื่อมต่อกับเซนเซอร์ประเภทต่างๆ ออกแบบระบบส่งข้อมูลขึ้น Cloud แบบ Real-time และบริหารจัดการข้อมูลระบบ IoT ผ่าน Node-RED[cite: 2]
+            </p>
+          </div>
+        </div>
+
+        <!-- Year 2 -->
+        <div class="relative pl-6 group">
+          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-900 border-2 border-cyan-500 group-hover:bg-cyan-400 transition"></div>
+          <div class="bg-slate-900/40 border border-slate-800/80 p-5 rounded-xl space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-mono text-cyan-400">YEAR 2</span>[cite: 2]
+              <span class="text-xs font-mono text-slate-500">Circuit & Embedded</span>[cite: 2]
+            </div>
+            <h3 class="text-lg font-bold text-white">Circuit Design & Logic Gate Project</h3>[cite: 2]
+            <p class="text-slate-400 text-sm leading-relaxed">
+              ออกแบบแผงวงจรไฟฟ้า (PCB) และประกอบวงจรอิเล็กทรอนิกส์สำหรับรถเดินตามเส้นสี โดยใช้ Logic Gates ในการควบคุมสถาปัตยกรรมวงจร และเชื่อมต่อทดสอบระบบผ่าน Node-RED[cite: 2]
+            </p>
+          </div>
+        </div>
+
+        <!-- Year 3 -->
+        <div class="relative pl-6 group">
+          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-900 border-2 border-cyan-500 group-hover:bg-cyan-400 transition"></div>
+          <div class="bg-slate-900/40 border border-slate-800/80 p-5 rounded-xl space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-mono text-cyan-400">YEAR 3</span>[cite: 2]
+              <span class="text-xs font-mono text-slate-500">App & Network Infrastructure</span>[cite: 2]
+            </div>
+            <h3 class="text-lg font-bold text-white">Web/App Development & Data Center Networking</h3>[cite: 2]
+            <p class="text-slate-400 text-sm leading-relaxed">
+              • พัฒนาแอปพลิเคชัน <b>"Quest Remember"</b> ช่วยผู้ใช้ติดตามสถานะและระยะเวลาการเล่นเกม เพื่อประมวลผลพฤติกรรม[cite: 2]<br>
+              • บริหารจัดการระบบเครือข่ายศูนย์ข้อมูล (Data Center Internal Networking) ออกแบบจัดสรร IP Address, Subnet Mask และตรวจสอบ Network Connectivity & Routing เพื่อความเสถียรและความปลอดภัย[cite: 2]
+            </p>
+          </div>
+        </div>
+
+        <!-- Year 4 -->
+        <div class="relative pl-6 group">
+          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-900 border-2 border-cyan-500 group-hover:bg-cyan-400 transition"></div>
+          <div class="bg-slate-900/40 border border-slate-800/80 p-5 rounded-xl space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-mono text-cyan-400">YEAR 4</span>[cite: 2]
+              <span class="text-xs font-mono text-slate-500">AI Automation</span>[cite: 2]
+            </div>
+            <h3 class="text-lg font-bold text-white">AI Visual Automation by CiRA CORE</h3>[cite: 2]
+            <p class="text-slate-400 text-sm leading-relaxed">
+              เรียนรู้และประยุกต์ใช้แพลตฟอร์ม CiRA CORE ในการสร้างระบบควบคุมอัตโนมัติด้วยปัญญาประดิษฐ์ (AI Automation)[cite: 2]
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section id="projects" class="reveal-item">
+      <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+        <i data-lucide="folder-git-2" class="text-cyan-400"></i> Highlight Projects
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Project 1: Quest Remember -->
+        <div class="bg-slate-900/50 border border-slate-800/80 rounded-xl p-6 hover:border-cyan-500/50 transition duration-300 hover:-translate-y-1 space-y-4 backdrop-blur-sm">
+          <div class="flex justify-between items-start">
+            <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition">Quest Remember App</h3>[cite: 2]
+            <span class="bg-cyan-950 border border-cyan-800 text-cyan-400 text-xs px-2.5 py-1 rounded font-mono">Frontend / App</span>[cite: 2]
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            แอปพลิเคชันช่วยผู้ใช้งานติดตามสถานะเกม และบันทึกระยะเวลาการเล่นเกม เพื่อนำข้อมูลมาประมวลผลพฤติกรรมการเล่น[cite: 2]
+          </p>
+          <div class="flex flex-wrap gap-2 text-xs font-mono text-slate-400 pt-2">
+            <span class="bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">HTML</span>[cite: 2]
+            <span class="bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">JavaScript</span>[cite: 2]
+            <span class="bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">App Dev</span>[cite: 2]
+          </div>
+        </div>
+
+        <!-- Project 2: Data Center Network -->
+        <div class="bg-slate-900/50 border border-slate-800/80 rounded-xl p-6 hover:border-cyan-500/50 transition duration-300 hover:-translate-y-1 space-y-4 backdrop-blur-sm">
+          <div class="flex justify-between items-start">
+            <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition">Data Center Infrastructure</h3>[cite: 2]
+            <span class="bg-cyan-950 border border-cyan-800 text-cyan-400 text-xs px-2.5 py-1 rounded font-mono">Network</span>[cite: 2]
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            วางแผน จัดสรร IP Address/Subnetting และทดสอบระบบ Routing ภายใน Data Center เพื่อความเสถียรและปลอดภัย[cite: 2]
+          </p>
+          <div class="flex flex-wrap gap-2 text-xs font-mono text-slate-400 pt-2">
+            <span class="bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">Subnetting</span>[cite: 2]
+            <span class="bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">Routing</span>[cite: 2]
+            <span class="bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">Data Center</span>[cite: 2]
+          </div>
+        </div>
+
+        <!-- Project 3: Smart Home IoT -->
+        <div class="bg-slate-900/50 border border-slate-800/80 rounded-xl p-6 hover:border-cyan-500/50 transition duration-300 hover:-translate-y-1 space-y-4 backdrop-blur-sm">
+          <div class="flex justify-between items-start">
+            <h3 class="text-xl font-bold text-white">Smart Home ESP32 System</h3>[cite: 2]
+            <span class="bg-cyan-950 border border-cyan-800 text-cyan-400 text-xs px-2.5 py-1 rounded font-mono">IoT + Cloud</span>[cite: 2]
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            ระบบบ้านอัจฉริยะควบคุมด้วย ESP32 เชื่อมต่อกับเซนเซอร์ต่างๆ และส่งข้อมูลขึ้น Cloud Real-time แสดงผลผ่าน Node-RED[cite: 2]
+          </p>
+          <div class="flex flex-wrap gap-2 text-xs font-mono text-slate-400 pt-2">
+            <span class="bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">C/C++</span>[cite: 2]
+            <span class="bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">ESP32</span>[cite: 2]
+            <span class="bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">Node-RED</span>[cite: 2]
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Interactive Gimmick: CLI Terminal -->
+    <section id="terminal" class="reveal-item">
+      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+        <i data-lucide="terminal" class="text-cyan-400"></i> Interactive CLI
+        <span class="text-xs font-mono text-cyan-500/80 border border-cyan-800/80 px-2 py-0.5 rounded">Gimmick</span>[cite: 3]
+      </h2>
+
+      <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 font-mono text-sm shadow-2xl glow-cyan">
+        <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
+          <div class="flex gap-2">
+            <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+            <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+            <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+          </div>
+          <span class="text-xs text-slate-500">isara@cpe-terminal:~</span>[cite: 3]
+        </div>
+
+        <div id="terminalOutput" class="space-y-2 text-slate-300 min-h-[140px] max-h-[220px] overflow-y-auto mb-3">
+          <p class="text-slate-500">Welcome to Isara's Interactive Terminal v2.0.0</p>[cite: 3]
+          <p class="text-cyan-400">Type <span class="text-white font-bold">'help'</span>, <span class="text-white font-bold">'contact'</span> or <span class="text-white font-bold">'experience'</span> to explore.</p>[cite: 3]
+        </div>
+
+        <form id="terminalForm" class="flex items-center gap-2 border-t border-slate-800/80 pt-3">
+          <span class="text-cyan-400 font-bold">isara@cpe:~$</span>[cite: 3]
+          <input type="text" id="terminalInput" class="bg-transparent text-white focus:outline-none flex-grow font-mono" placeholder="try typing 'contact', 'experience', or 'skills'..." autocomplete="off">[cite: 3]
+        </form>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-8 text-center space-y-4 backdrop-blur-md reveal-item">
+      <h2 class="text-2xl font-bold text-white">Get In Touch</h2>
+      <p class="text-slate-400 text-sm max-w-md mx-auto">
+        กำลังมองหาโอกาสงาน หรือการฝึกงานด้าน Computer Engineering, AI Automation, IoT และ Network Systems ติดต่อผมได้เลยครับ
+      </p>
+      
+      <div class="flex flex-wrap justify-center gap-6 text-sm text-slate-300 pt-2 font-mono">
+        <div class="flex items-center gap-2 bg-slate-800/60 px-4 py-2 rounded-lg border border-slate-700">
+          <i data-lucide="phone" class="text-cyan-400 w-4 h-4"></i> 091-7971612
+        </div>[cite: 2]
+        <div class="flex items-center gap-2 bg-slate-800/60 px-4 py-2 rounded-lg border border-slate-700">
+          <i data-lucide="mail" class="text-cyan-400 w-4 h-4"></i> ingkung2004@gmail.com
+        </div>[cite: 2]
+      </div>
+
+      <div class="pt-2">
+        <a href="mailto:ingkung2004@gmail.com" class="inline-flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-6 py-3 rounded-lg transition glow-cyan hover:scale-105 active:scale-95">
+          <i data-lucide="mail"></i> Send Direct Email
+        </a>[cite: 2]
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 py-6 text-center text-slate-500 text-xs font-mono z-10 relative bg-slate-950/80">
+    © Isara Khamphaeng (O). Computer Engineering Portfolio.
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Initialize Icons
+    lucide.createIcons();
+
+    // 1. ScrollReveal Animations
+    ScrollReveal().reveal('.reveal-item', {
+      delay: 150,
+      distance: '30px',
+      duration: 800,
+      easing: 'cubic-bezier(0.5, 0, 0, 1)',
+      interval: 100,
+      origin: 'bottom'
+    });
+
+    // 2. Custom Cursor Script
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+
+    window.addEventListener('mousemove', (e) => {
+      const posX = e.clientX;
+      const posY = e.clientY;
+
+      cursorDot.style.left = `${posX}px`;
+      cursorDot.style.top = `${posY}px`;
+
+      cursorOutline.animate({
+        left: `${posX}px`,
+        top: `${posY}px`
+      }, { duration: 400, fill: "forwards" });
+    });
+
+    // 3. 3D Tilt Card Effect
+    const card = document.getElementById('tiltCard');
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      card.style.transform = `perspective(1000px) rotateX(${-y / 12}deg) rotateY(${x / 12}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    });
+
+    // 4. Matrix Code Rain Background
+    const canvas = document.getElementById('matrixCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const chars = '01ISARA_O_CPE_CIRA_CORE_ESP32_JS';
+    const fontSize = 12;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array(columns).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(5, 8, 17, 0.1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#06b6d4';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+    setInterval(drawMatrix, 50);
+
+    // 5. Interactive Terminal Logic
+    const form = document.getElementById('terminalForm');
+    const input = document.getElementById('terminalInput');
+    const output = document.getElementById('terminalOutput');
+
+    const commands = {
+      help: "Available commands: <b class='text-cyan-400'>about</b>, <b class='text-cyan-400'>skills</b>, <b class='text-cyan-400'>experience</b>, <b class='text-cyan-400'>contact</b>, <b class='text-cyan-400'>clear</b>",
+      about: "Isara Khamphaeng (O) — Computer Engineering student at SPU. Skilled in C, C++, Python, JavaScript, CiRA CORE AI, IoT & Network Data Center.",
+      skills: "C, C++, Python, JavaScript, HTML, CiRA CORE AI, ESP32, PCB Design, Node-RED, Network Routing, Data Center, MySQL, MongoDB.",
+      experience: "Year 1: Smart Home (ESP32) | Year 2: Circuit & Logic Gate | Year 3: Quest Remember App & Data Center Networking | Year 4: AI Automation (CiRA CORE)",
+      contact: "Tel: 091-7971612 | Email: ingkung2004@gmail.com",
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const cmd = input.value.trim().toLowerCase();
+      
+      const pCmd = document.createElement('p');
+      pCmd.innerHTML = `<span class="text-cyan-400">isara@cpe:~$</span> ${input.value}`;
+      output.appendChild(pCmd);
+
+      const pRes = document.createElement('p');
+      if (cmd === 'clear') {
+        output.innerHTML = '';
+      } else if (commands[cmd]) {
+        pRes.innerHTML = commands[cmd];
+        pRes.className = 'text-slate-300 pl-4 border-l-2 border-cyan-500';
+        output.appendChild(pRes);
+      } else if (cmd !== '') {
+        pRes.innerHTML = `Command not found: '${cmd}'. Type <b class='text-cyan-400'>'help'</b> for commands.`;
+        pRes.className = 'text-rose-400 pl-4';
+        output.appendChild(pRes);
+      }
+
+      input.value = '';
+      output.scrollTop = output.scrollHeight;
+    });
+  </script>
+</body>
+</html>
